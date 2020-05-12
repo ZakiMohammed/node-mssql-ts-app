@@ -1,0 +1,33 @@
+{
+    "name": "mssql-ts-app",
+    "version": "1.0.0",
+    "description": "NodeJS MSSQL TS application",
+    "main": "dist/index.js",
+    "scripts": {
+        "start": "node dist/index",
+        "dev": "nodemon dist/index",
+        "build": "tsc -p .",
+        "test": "npm test"
+    },
+    "keywords": [
+        "NodeJS",
+        "MSSQL",
+        "TS"
+    ],
+    "author": "Zaki Mohammed",
+    "license": "ISC",
+    "dependencies": {
+        "@types/mssql": "^6.0.1",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "msnodesqlv8": "^1.1.4",
+        "mssql": "^6.2.0"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.6",
+        "@types/node": "^13.13.5",
+        "nodemon": "^2.0.3",
+        "ts-node": "^8.10.1",
+        "typescript": "^3.8.3"
+    }
+}
