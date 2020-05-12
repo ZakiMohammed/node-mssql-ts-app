@@ -1,5 +1,18 @@
 # NodeJS get along with MSSQL using TS
 
+#### Run Application
+```
+// build the app from TS to JS
+npm run build
+
+// using nodemon
+npm run dev
+
+// without using nodemon
+npm start
+```
+After building, the application can also be RUN by hitting F5 in VS code, it will create a default launch.json file. Keep the default setting and run the app by hitting F5.
+
 #### Install Typescript Compiler Globally
 ```
 npm i -g typescript
