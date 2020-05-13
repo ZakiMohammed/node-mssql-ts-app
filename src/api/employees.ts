@@ -1,6 +1,7 @@
 import express, { Router, Request, Response } from 'express';
 import client, { ConnectionPool } from 'mssql/msnodesqlv8';
 import { Employee } from '../models/employee';
+import { Summary, SummaryDetail } from '../models/summary';
 
 const router: Router = express.Router();
 const connectionString: string = process.env.CONNECTION_STRING as string;
@@ -105,6 +106,46 @@ router.delete('/:id', async (req: Request, res: Response) => {
                 message: 'Record not found'
             });
         }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// GET: api/employees/search?name=
+router.get('/search', async (req: Request, res: Response) => {
+    try {
+
+        const name: string = req.query.name as string;
+
+        const pool = new client.ConnectionPool(connectionString);
+        await pool.connect();
+
+        const result = await pool.request()
+            .input('Name', name)
+            .execute(`SearchEmployee`);
+        const employees: Employee[] = result.recordset;
+
+        res.json(employees);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// GET: api/employees/summary
+router.get('/summary', async (req: Request, res: Response) => {
+    try {
+        const pool = new client.ConnectionPool(connectionString);
+        await pool.connect();
+
+        const result = await pool.request()
+            .execute(`GetSalarySummary`);
+
+        const summary: Summary = {
+            Department: result.recordsets[0] as unknown as SummaryDetail,
+            Job: result.recordsets[1] as unknown as SummaryDetail,
+        };
+
+        res.json(summary);
     } catch (error) {
         res.status(500).json(error);
     }

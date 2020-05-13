@@ -107,6 +107,39 @@ router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json(error);
     }
 }));
+// GET: api/employees/search?name=
+router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const name = req.query.name;
+        const pool = new msnodesqlv8_1.default.ConnectionPool(connectionString);
+        yield pool.connect();
+        const result = yield pool.request()
+            .input('Name', name)
+            .execute(`SearchEmployee`);
+        const employees = result.recordset;
+        res.json(employees);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+}));
+// GET: api/employees/summary
+router.get('/summary', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const pool = new msnodesqlv8_1.default.ConnectionPool(connectionString);
+        yield pool.connect();
+        const result = yield pool.request()
+            .execute(`GetSalarySummary`);
+        const summary = {
+            Department: result.recordsets[0],
+            Job: result.recordsets[1],
+        };
+        res.json(summary);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+}));
 // GET: api/employees/:id
 router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
