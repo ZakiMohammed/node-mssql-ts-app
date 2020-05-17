@@ -10,6 +10,10 @@ npm run dev
 
 // without using nodemon
 npm start
+
+// this one requires ts-node-dev to be installed globally [npm i ts-node-dev -g]
+// with new and improved auto build-watch feature
+npm run watch
 ```
 After building, the application can also be RUN by hitting F5 in VS code, it will create a default launch.json file. Keep the default setting and run the app by hitting F5.
 
